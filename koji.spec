@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.11.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -348,6 +348,9 @@ fi
 %endif
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sun Jan 08 2017 Till Maas <opensource@till.name> - 1.11.0-5
 - Do not apply faulty CheckClientIP patch
 
