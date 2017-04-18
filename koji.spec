@@ -1,6 +1,6 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from %distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
-%if 0%{?fedora} >= 23 || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %global use_systemd 1
 %else
 %global use_systemd 0
@@ -8,22 +8,15 @@
 %endif
 
 Name: koji
-Version: 1.11.0
-Release: 6%{?dist}
+Version: 1.12.0
+Release: 1%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
 Group: Applications/System
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
-# https://pagure.io/koji/pull-request/246
-Patch1: koji-pr246-kojigc-krb_rds-support.patch
-# https://pagure.io/koji/pull-request/248
-Patch2: koji-pr248-kojigc-keytab-support.patch
-# https://pagure.io/koji/pull-request/243
-Patch3: koji-pr243-CheckClientIP-and-TrustForwardedIP.patch
-# https://pagure.io/koji/pull-request/239
-Patch4: koji-pr239-principal-keytab-cli-config.patch
+
 # Not upstreamable
 Patch100: fedora-config.patch
 
@@ -56,10 +49,7 @@ License: LGPLv2 and GPLv2
 # rpmdiff lib (from rpmlint) is GPLv2 (only)
 Requires: httpd
 Requires: mod_wsgi
-Requires: postgresql-python
-%if 0%{?rhel} == 5
-Requires: python-simplejson
-%endif
+Requires: python-psycopg2
 Requires: %{name} = %{version}-%{release}
 
 %description hub
@@ -72,12 +62,7 @@ License: LGPLv2
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-hub = %{version}-%{release}
 Requires: python-qpid >= 0.7
-%if 0%{?rhel} >= 6
 Requires: python-qpid-proton
-%endif
-%if 0%{?rhel} == 5
-Requires: python-ssl
-%endif
 Requires: cpio
 
 %description hub-plugins
@@ -92,6 +77,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: mock >= 0.9.14
 Requires(pre): /usr/sbin/useradd
 Requires: squashfs-tools
+Requires: python2-multilib
 %if %{use_systemd}
 Requires(post): systemd
 Requires(preun): systemd
@@ -106,14 +92,7 @@ Requires: /usr/bin/cvs
 Requires: /usr/bin/svn
 Requires: /usr/bin/git
 Requires: python-cheetah
-%if 0%{?rhel} == 5
-Requires: createrepo >= 0.4.11-2
-Requires: python-hashlib
-Requires: python-createrepo
-%endif
-%if 0%{?fedora} >= 9 || 0%{?rhel} > 5
 Requires: createrepo >= 0.9.2
-%endif
 
 %description builder
 koji-builder is the daemon that runs on build machines and executes
@@ -147,7 +126,7 @@ virtual machine. This package is not required for most installations.
 Summary: Koji Utilities
 Group: Applications/Internet
 License: LGPLv2
-Requires: postgresql-python
+Requires: python-psycopg2
 Requires: %{name} = %{version}-%{release}
 %if %{use_systemd}
 Requires(post): systemd
@@ -165,7 +144,7 @@ License: LGPLv2
 Requires: httpd
 Requires: mod_wsgi
 Requires: mod_auth_kerb
-Requires: postgresql-python
+Requires: python-psycopg2
 Requires: python-cheetah
 Requires: %{name} = %{version}-%{release}
 Requires: python-krbV >= 1.0.13
@@ -175,11 +154,6 @@ koji-web is a web UI to the Koji system.
 
 %prep
 %setup -q
-%patch1 -p1 -b .246
-%patch2 -p1 -b .248
-# This seems to break the koji hub currently, thefore do not apply it
-#patch3 -p1 -b .243
-%patch4 -p1 -b .239
 %patch100 -p1 -b .fedoraconfig
 
 %build
@@ -348,6 +322,10 @@ fi
 %endif
 
 %changelog
+* Tue Apr 18 2017 Dennis Gilmore <dennis@ausil.us> - 1.12.0-1
+- update to upstream 1.12.0
+- remove rhel 5 conditionals as its no longer supported in epel
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 

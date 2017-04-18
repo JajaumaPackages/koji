@@ -1,6 +1,5 @@
-diff -up koji-1.11.0/cli/koji.conf.clientconf koji-1.11.0/cli/koji.conf
---- koji-1.11.0/cli/koji.conf.clientconf	2017-01-08 12:35:51.681832856 +0100
-+++ koji-1.11.0/cli/koji.conf	2017-01-08 12:37:14.388829788 +0100
+--- koji-1.12.0/cli/koji.conf.orig	2017-04-18 14:35:15.879593521 -0500
++++ koji-1.12.0/cli/koji.conf	2017-04-18 14:37:45.818233378 -0500
 @@ -3,18 +3,20 @@
  ;configuration for koji cli tool
  
@@ -25,11 +24,10 @@ diff -up koji-1.11.0/cli/koji.conf.clientconf koji-1.11.0/cli/koji.conf
  
  ;the service name of the principal being used by the hub
  ;krbservice = host
-@@ -24,11 +26,3 @@
- 
+@@ -25,10 +27,4 @@
  ;the keytab to auth as for automated clients
  ;keytab = /etc/krb5.keytab
--
+
 -;configuration for SSL authentication
 -
 -;client certificate
@@ -37,3 +35,4 @@ diff -up koji-1.11.0/cli/koji.conf.clientconf koji-1.11.0/cli/koji.conf
 -
 -;certificate of the CA that issued the HTTP server certificate
 -;serverca = ~/.koji/serverca.crt
++use_fast_upload = yes
