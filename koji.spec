@@ -155,7 +155,7 @@ koji-web is a web UI to the Koji system.
 
 %prep
 %setup -q
-%patch1 -p1 -b
+%patch1 -p1
 %patch100 -p1 -b .fedoraconfig
 
 %build
