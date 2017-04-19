@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -17,6 +17,7 @@ Group: Applications/System
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
 
+Patch1: 0001-allow-kojid-to-start-when-not-using-ssl-cert-auth.patch
 # Not upstreamable
 Patch100: fedora-config.patch
 
@@ -154,6 +155,7 @@ koji-web is a web UI to the Koji system.
 
 %prep
 %setup -q
+%patch1 -p1 -b
 %patch100 -p1 -b .fedoraconfig
 
 %build
@@ -323,6 +325,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 19 2017 Dennis Gilmore <dennis@ausil.us> - 1.12.0-2
+- add patch so that kojid starts without ssl auth configured
+
 * Tue Apr 18 2017 Dennis Gilmore <dennis@ausil.us> - 1.12.0-1
 - update to upstream 1.12.0
 - remove rhel 5 conditionals as its no longer supported in epel
