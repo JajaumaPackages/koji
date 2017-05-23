@@ -1,0 +1,22 @@
+From 5bcf029d037a673e013211445cc6ac892c6ed11e Mon Sep 17 00:00:00 2001
+From: Tomas Kopecek <tkopecek@redhat.com>
+Date: May 19 2017 10:47:51 +0000
+Subject: don't inspect results for failed createImage tasks
+
+
+---
+
+diff --git a/builder/kojid b/builder/kojid
+index 1a10483..235cbeb 100755
+--- a/builder/kojid
++++ b/builder/kojid
+@@ -2228,6 +2228,8 @@ class BuildBaseImageTask(BuildImageTask):
+             if 'kickstart' in opts:
+                 saw_ks = False
+                 for arch in results.keys():
++                    if arch in ignored_arches:
++                        continue
+                     ks = os.path.basename(opts.get('kickstart'))
+                     if ks in results[arch]['files']:
+                         if saw_ks:
+
