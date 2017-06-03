@@ -12,15 +12,15 @@ Signed-off-by: Patrick Uiterwijk <puiterwijk@redhat.com>
 ---
 
 diff --git a/hub/kojihub.py b/hub/kojihub.py
-index 947f60d..d300038 100644
+index 05dfb27..6257f20 100644
 --- a/hub/kojihub.py
 +++ b/hub/kojihub.py
-@@ -9883,10 +9883,7 @@ class RootExports(object):
+@@ -9878,10 +9878,7 @@ class RootExports(object):
              raise koji.GenericError('either rpmID or taskID and filepath must be specified')
  
          headers = koji.get_header_fields(rpm_path, headers)
 -        for key, value in headers.items():
--            if isinstance(value, six.string_types):
+-            if isinstance(value, basestring):
 -                headers[key] = koji.fixEncoding(value, remove_nonprintable=True)
 -        return headers
 +        return koji.fixEncodingRecurse(headers, remove_nonprintable=True)
