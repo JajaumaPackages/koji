@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.12.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -24,6 +24,8 @@ Patch2: 5a23afaeeb1c54ccfb86e20b1f35c0215635536a.patch
 Patch3: 7ec0e2c6b01f27f7a23546c64d775a1befd722e4.patch
 # https://pagure.io/koji/c/5bcf029d037a673e013211445cc6ac892c6ed11e?branch=master
 Patch4: 5bcf029d037a673e013211445cc6ac892c6ed11e.patch
+# https://pagure.io/koji/pull-request/403.patch
+Patch5: 403.patch
 
 # Not upstreamable
 Patch100: fedora-config.patch
@@ -166,6 +168,7 @@ koji-web is a web UI to the Koji system.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 %patch100 -p1 -b .fedoraconfig
 
 %build
@@ -335,6 +338,9 @@ fi
 %endif
 
 %changelog
+* Sat Jun 03 2017 Patrick Uiterwijk <puiterwijk@redhat.com> - 1.12.0-4
+- Add upstreamed patch for #349
+
 * Tue May 23 2017 Dennis Gilmore <dennis@ausil.us> - 1.12.0-3
 - add some upstreamed patches needed to fix some things in fedora
 
