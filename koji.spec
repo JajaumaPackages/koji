@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.12.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -155,7 +155,7 @@ Group: Applications/Internet
 License: LGPLv2
 Requires: httpd
 Requires: mod_wsgi
-Requires: mod_auth_kerb
+Requires: mod_auth_gssapi
 Requires: python-psycopg2
 Requires: python-cheetah
 Requires: %{name} = %{version}-%{release}
@@ -341,6 +341,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 14 2017 Dennis Gilmore <dennis@ausil.us> - 1.12.0-6
+- change koji-web requires from mod_auth_kerb to mod_auth_gssapi
+
 * Sat Jun 03 2017 Patrick Uiterwijk <puiterwijk@redhat.com> - 1.12.0-5
 - Add patch for completing #349 fix
 
