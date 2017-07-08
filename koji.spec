@@ -1,6 +1,6 @@
 # Enable Python 3 builds for Fedora + EPEL >5
 # NOTE: do **NOT** change 'epel' to 'rhel' here, as this spec is also
-%if 0%{?fedora} || 0%{?epel} > 5
+%if 0%{?fedora}
 %bcond_without python3
 # If the definition isn't available for python3_pkgversion, define it
 %{?!python3_pkgversion:%global python3_pkgversion 3}
