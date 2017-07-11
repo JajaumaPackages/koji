@@ -26,7 +26,7 @@
 
 Name: koji
 Version: 1.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -54,6 +54,14 @@ BuildRequires: python-sphinx
 %if %{use_systemd}
 BuildRequires: systemd
 BuildRequires: pkgconfig
+%endif
+
+# For backwards compatibility, we want to Require: python2-koji for Fedora <= 26 so dependent
+# packages have some time to switch their Requires lines to python2-koji instead of Koji.
+%if 0%{?fedora} && 0%{?fedora} <= 26
+Requires: python2-%{name} = %{version}-%{release}
+Requires: python2-pycurl
+Requires: python2-libcomps
 %endif
 
 %description
@@ -430,6 +438,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 11 2017 Randy Barlow <bowlofeggs@fedoraproject.org> - 1.13.0-2
+- Require python2-koji on Fedora <= 26.
+
 * Mon Jul 03 2017 Dennis Gilmore <dennis@ausil.us> - 1.13.0-1
 - update to upstream 1.13.0
 - remove old  changelog entries
