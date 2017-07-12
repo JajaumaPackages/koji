@@ -26,7 +26,7 @@
 
 Name: koji
 Version: 1.13.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -44,9 +44,15 @@ Requires: python3-pycurl
 Requires: python3-libcomps
 %else
 Requires: python2-%{name} = %{version}-%{release}
-Requires: python2-pycurl
-%if 0%{?fedora} || 0%{?rhel} >= 7
+%if 0%{?fedora}
 Requires: python2-libcomps
+Requires: python2-pycurl
+%endif
+%if 0%{?rhel}
+Requires: python-pycurl
+%endif
+%if 0%{?rhel} >= 7
+Requires: python-libcomps
 %endif
 %endif
 BuildRequires: python
@@ -438,6 +444,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 12 2017 Patrick Uiterwijk <puiterwijk@redhat.com> - 1.13.0-3
+- Remove the 2 postfix for pycurl and libcomps on RHEL
+
 * Tue Jul 11 2017 Randy Barlow <bowlofeggs@fedoraproject.org> - 1.13.0-2
 - Require python2-koji on Fedora <= 26.
 
