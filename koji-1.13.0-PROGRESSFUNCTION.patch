@@ -1,0 +1,12 @@
+diff -uNr koji-1.13.0.orig/cli/koji_cli/commands.py koji-1.13.0/cli/koji_cli/commands.py
+--- koji-1.13.0.orig/cli/koji_cli/commands.py	2017-08-12 18:06:34.788299260 +0300
++++ koji-1.13.0/cli/koji_cli/commands.py	2017-08-12 18:07:20.504160225 +0300
+@@ -6443,7 +6443,7 @@
+         c.setopt(c.WRITEDATA, open(relpath, 'wb'))
+         if not suboptions.quiet:
+             c.setopt(c.NOPROGRESS, False)
+-            c.setopt(c.XFERINFOFUNCTION, _progress)
++            c.setopt(c.PROGRESSFUNCTION, _progress)
+         c.perform()
+         print('')
+ 
