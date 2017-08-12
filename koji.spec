@@ -26,7 +26,7 @@
 
 Name: koji
 Version: 1.13.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -450,7 +450,7 @@ fi
 %endif
 
 %changelog
-* Sat Aug 12 2017 Jajauma's Packages <jajauma@yandex.ru> - 1.13.0-5
+* Sat Aug 12 2017 Jajauma's Packages <jajauma@yandex.ru> - 1.13.0-6
 - Replace XFERINFOFUNCTION with PROGRESSFUNCTION for older libcurl
 
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-4
