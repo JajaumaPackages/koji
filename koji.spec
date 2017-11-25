@@ -25,8 +25,8 @@
 %endif
 
 Name: koji
-Version: 1.13.0
-Release: 6%{?dist}
+Version: 1.14.0
+Release: 1%{?dist}
 # koji.ssl libs (from plague) are GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -36,9 +36,6 @@ Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
 
 # Not upstreamable
 Patch100: fedora-config.patch
-%if 0%{?rhel}
-Patch101: koji-1.13.0-PROGRESSFUNCTION.patch
-%endif
 
 BuildArch: noarch
 %if 0%{with python3}
@@ -243,9 +240,6 @@ koji-web is a web UI to the Koji system.
 %prep
 %setup -q
 %patch100 -p1 -b .fedoraconfig
-%if 0%{?rhel}
-%patch101 -p1
-%endif
 
 %build
 
@@ -450,6 +444,10 @@ fi
 %endif
 
 %changelog
+* Sat Nov 25 2017 Jajauma's Packages <jajauma@yandex.ru> - 1.14.0-1
+- Update to latest upstream release
+- Drop koji-1.13.0-PROGRESSFUNCTION.patch (fixed upstream)
+
 * Sat Aug 12 2017 Jajauma's Packages <jajauma@yandex.ru> - 1.13.0-6
 - Replace XFERINFOFUNCTION with PROGRESSFUNCTION for older libcurl
 
